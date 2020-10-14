@@ -19,6 +19,7 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.cell_article.*
+import org.ocpsoft.prettytime.PrettyTime
 import java.time.Instant
 
 class MainActivity : AppCompatActivity() {
@@ -98,6 +99,8 @@ class MainActivity : AppCompatActivity() {
         inner class ViewHolder(override val containerView: View) :
             RecyclerView.ViewHolder(containerView), LayoutContainer {
 
+            val pt = PrettyTime()
+
             init {
                 itemView.setOnClickListener {
                     val position = adapterPosition
@@ -113,7 +116,7 @@ class MainActivity : AppCompatActivity() {
 
             fun bind(article: Article) {
                 textTitle.text = article.title
-                textSubtitle.text = "${article.author} - ${article.created}"
+                textSubtitle.text = "${article.author} - ${pt.format(article.created)}"
             }
         }
 
