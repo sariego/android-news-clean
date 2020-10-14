@@ -1,5 +1,7 @@
 package dev.sariego.reignhiringtest
 
+import android.graphics.Canvas
+import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,9 +15,11 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dev.sariego.reignhiringtest.data.Article
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.cell_article.*
+import java.time.Instant
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,7 +37,8 @@ class MainActivity : AppCompatActivity() {
         recycler.adapter = adapter
 
         // swipe to delete stuff
-        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+        ItemTouchHelper(object :
+            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
@@ -42,6 +47,31 @@ class MainActivity : AppCompatActivity() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 model.delete(adapter.items[viewHolder.adapterPosition])
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                RecyclerViewSwipeDecorator.Builder(
+                    c, recyclerView, viewHolder,
+                    dX, dY, actionState, isCurrentlyActive
+                ).addBackgroundColor(Color.parseColor("#CC0000"))
+                    .setSwipeLeftLabelColor(Color.parseColor("#FFFFFF"))
+                    .setSwipeRightLabelColor(Color.parseColor("#FFFFFF"))
+                    .addSwipeLeftLabel("Delete")
+                    .addSwipeRightLabel("Delete")
+                    .create().decorate()
+
+                super.onChildDraw(
+                    c, recyclerView, viewHolder,
+                    dX, dY, actionState, isCurrentlyActive
+                )
             }
         }).attachToRecyclerView(recycler)
 
