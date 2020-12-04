@@ -3,7 +3,7 @@ package dev.sariego.reignhiringtest.data.local
 import androidx.lifecycle.LiveData
 import dev.sariego.reignhiringtest.domain.entity.Article
 
-interface ArticlesLocalSource {
+interface ArticlesLocalDataSource {
 
     fun live(): LiveData<List<Article>>
 

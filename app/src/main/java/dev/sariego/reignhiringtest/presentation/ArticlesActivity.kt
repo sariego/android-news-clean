@@ -9,14 +9,17 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import dev.sariego.reignhiringtest.R
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import kotlinx.android.synthetic.main.activity_articles.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ArticlesActivity : AppCompatActivity() {
 
     private val model: ArticlesViewModel by viewModels()
-    private val adapter = ArticlesAdapter(emptyList())
+    @Inject lateinit var adapter: ArticlesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

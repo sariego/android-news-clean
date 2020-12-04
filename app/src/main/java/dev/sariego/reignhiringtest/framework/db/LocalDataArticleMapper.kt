@@ -1,8 +1,9 @@
 package dev.sariego.reignhiringtest.framework.db
 
 import dev.sariego.reignhiringtest.domain.entity.Article
+import javax.inject.Inject
 
-class LocalDataArticleMapper {
+class LocalDataArticleMapper @Inject constructor() {
 
     fun LocalDataArticle.asArticle() = Article(
         id = this.id,

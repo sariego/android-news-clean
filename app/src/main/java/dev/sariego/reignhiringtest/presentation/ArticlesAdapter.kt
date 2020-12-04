@@ -11,10 +11,12 @@ import dev.sariego.reignhiringtest.domain.entity.Article
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.cell_article.*
 import org.ocpsoft.prettytime.PrettyTime
+import javax.inject.Inject
 
-class ArticlesAdapter(var items: List<Article>) :
+class ArticlesAdapter @Inject constructor() :
     RecyclerView.Adapter<ArticlesAdapter.ViewHolder>() {
 
+    var items: List<Article> = emptyList()
     private val pt = PrettyTime()
 
     inner class ViewHolder(override val containerView: View) :

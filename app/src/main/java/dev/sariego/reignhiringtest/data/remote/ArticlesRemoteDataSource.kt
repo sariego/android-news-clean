@@ -2,7 +2,7 @@ package dev.sariego.reignhiringtest.data.remote
 
 import dev.sariego.reignhiringtest.domain.entity.Article
 
-interface ArticlesRemoteSource {
+interface ArticlesRemoteDataSource {
 
     fun get(): List<Article>
 }

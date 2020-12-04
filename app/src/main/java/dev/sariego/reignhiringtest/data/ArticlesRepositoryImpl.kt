@@ -1,14 +1,15 @@
 package dev.sariego.reignhiringtest.data
 
 import androidx.lifecycle.LiveData
-import dev.sariego.reignhiringtest.data.local.ArticlesLocalSource
-import dev.sariego.reignhiringtest.data.remote.ArticlesRemoteSource
+import dev.sariego.reignhiringtest.data.local.ArticlesLocalDataSource
+import dev.sariego.reignhiringtest.data.remote.ArticlesRemoteDataSource
 import dev.sariego.reignhiringtest.domain.entity.Article
 import dev.sariego.reignhiringtest.domain.repository.ArticlesRepository
+import javax.inject.Inject
 
-class ArticlesRepositoryImpl(
-    private val local: ArticlesLocalSource,
-    private val remote: ArticlesRemoteSource,
+class ArticlesRepositoryImpl @Inject constructor(
+    private val local: ArticlesLocalDataSource,
+    private val remote: ArticlesRemoteDataSource,
 ) : ArticlesRepository {
 
     override fun live(): LiveData<List<Article>> = local.live()

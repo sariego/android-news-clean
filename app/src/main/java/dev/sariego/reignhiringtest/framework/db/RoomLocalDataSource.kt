@@ -2,14 +2,16 @@ package dev.sariego.reignhiringtest.framework.db
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import dev.sariego.reignhiringtest.data.local.ArticlesLocalSource
+import dev.sariego.reignhiringtest.data.local.ArticlesLocalDataSource
 import dev.sariego.reignhiringtest.domain.entity.Article
-import dev.sariego.reignhiringtest.framework.App
+import javax.inject.Inject
 
-class RoomLocalSource : ArticlesLocalSource {
+class RoomLocalDataSource @Inject constructor(
+    private val db: AppDatabase,
+    private val mapper: LocalDataArticleMapper,
+) : ArticlesLocalDataSource {
 
-    private val dao = App.db.articleDao()
-    private val mapper = LocalDataArticleMapper()
+    private val dao by lazy { db.articleDao() }
 
     override fun live(): LiveData<List<Article>> = with(mapper) {
         dao.getNonDeletedArticles().map { list -> list.map { data -> data.asArticle() } }
@@ -22,6 +24,4 @@ class RoomLocalSource : ArticlesLocalSource {
     override fun addNew(vararg articles: Article) = with(mapper) {
         dao.insertOnlyNewArticles(*articles.map { article -> article.asData() }.toTypedArray())
     }
-
-
 }
