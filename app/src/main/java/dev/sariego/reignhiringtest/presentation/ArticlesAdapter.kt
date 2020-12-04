@@ -2,14 +2,11 @@ package dev.sariego.reignhiringtest.presentation
 
 import android.net.Uri
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.recyclerview.widget.RecyclerView
-import dev.sariego.reignhiringtest.R
+import dev.sariego.reignhiringtest.databinding.CellArticleBinding
 import dev.sariego.reignhiringtest.domain.entity.Article
-import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.cell_article.*
 import org.ocpsoft.prettytime.PrettyTime
 import javax.inject.Inject
 
@@ -19,9 +16,8 @@ class ArticlesAdapter @Inject constructor() :
     var items: List<Article> = emptyList()
     private val pt = PrettyTime()
 
-    inner class ViewHolder(override val containerView: View) :
-        RecyclerView.ViewHolder(containerView), LayoutContainer {
-
+    inner class ViewHolder(private val binding: CellArticleBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         init {
             itemView.setOnClickListener {
                 val position = adapterPosition
@@ -36,17 +32,16 @@ class ArticlesAdapter @Inject constructor() :
         }
 
         fun bind(article: Article) {
-            textTitle.text = article.title
-            textSubtitle.text = "${article.author} - ${pt.format(article.created)}"
+            binding.textTitle.text = article.title
+            binding.textSubtitle.text = "${article.author} - ${pt.format(article.created)}"
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.cell_article, parent, false)
+        CellArticleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        holder.bind(items[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position])
 
     override fun getItemCount(): Int = items.size
 }

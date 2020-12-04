@@ -10,22 +10,23 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import dev.sariego.reignhiringtest.R
+import dev.sariego.reignhiringtest.databinding.ActivityArticlesBinding
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
-import kotlinx.android.synthetic.main.activity_articles.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ArticlesActivity : AppCompatActivity() {
 
     private val model: ArticlesViewModel by viewModels()
+    private lateinit var binding: ActivityArticlesBinding
 
     @Inject
     lateinit var adapter: ArticlesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_articles)
+        binding = ActivityArticlesBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setupRecyclerView()
         setupSwipeToRefresh()
@@ -40,10 +41,15 @@ class ArticlesActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        recycler.setHasFixedSize(true)
-        recycler.layoutManager = LinearLayoutManager(this)
-        recycler.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-        recycler.adapter = adapter
+        binding.recycler.setHasFixedSize(true)
+        binding.recycler.layoutManager = LinearLayoutManager(this)
+        binding.recycler.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                DividerItemDecoration.VERTICAL
+            )
+        )
+        binding.recycler.adapter = adapter
 
         setupSwipeToDelete()
     }
@@ -85,14 +91,14 @@ class ArticlesActivity : AppCompatActivity() {
                     dX, dY, actionState, isCurrentlyActive
                 )
             }
-        }).attachToRecyclerView(recycler)
+        }).attachToRecyclerView(binding.recycler)
     }
 
     private fun setupSwipeToRefresh() {
-        layoutSwipeRefresh.setOnRefreshListener {
+        binding.layoutSwipeRefresh.setOnRefreshListener {
             model.update()
                 .invokeOnCompletion {
-                    layoutSwipeRefresh.isRefreshing = false
+                    binding.layoutSwipeRefresh.isRefreshing = false
                 }
         }
     }
