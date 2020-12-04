@@ -1,9 +1,9 @@
-package dev.sariego.reignhiringtest
+package dev.sariego.reignhiringtest.framework
 
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
-import dev.sariego.reignhiringtest.data.AppDatabase
+import dev.sariego.reignhiringtest.framework.db.AppDatabase
 
 class App : Application() {
 

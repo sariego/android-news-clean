@@ -2,10 +2,10 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "fb01be40e297bc3b5c5d7a277b334059",
+    "identityHash": "f90cefaddf2cb9ab82148519bad73aa0",
     "entities": [
       {
-        "tableName": "Article",
+        "tableName": "articles",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `author` TEXT NOT NULL, `created` INTEGER NOT NULL, `url` TEXT, `deleted` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
@@ -58,7 +58,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fb01be40e297bc3b5c5d7a277b334059')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f90cefaddf2cb9ab82148519bad73aa0')"
     ]
   }
 }
