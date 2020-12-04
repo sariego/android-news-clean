@@ -2,9 +2,9 @@ package dev.sariego.reignhiringtest.presentation
 
 import android.graphics.Canvas
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +19,9 @@ import javax.inject.Inject
 class ArticlesActivity : AppCompatActivity() {
 
     private val model: ArticlesViewModel by viewModels()
-    @Inject lateinit var adapter: ArticlesAdapter
+
+    @Inject
+    lateinit var adapter: ArticlesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
