@@ -1,9 +1,9 @@
-package dev.sariego.reignhiringtest.presentation
+package dev.sariego.reignhiringtest.presentation.adapter
 
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.browser.customtabs.CustomTabsIntent
+import android.webkit.URLUtil
 import androidx.recyclerview.widget.RecyclerView
 import dev.sariego.reignhiringtest.databinding.CellArticleBinding
 import dev.sariego.reignhiringtest.domain.entity.Article
@@ -14,6 +14,8 @@ class ArticlesAdapter @Inject constructor() :
     RecyclerView.Adapter<ArticlesAdapter.ViewHolder>() {
 
     var items: List<Article> = emptyList()
+    var onArticleClick: OnArticleClick? = null
+
     private val pt = PrettyTime()
 
     inner class ViewHolder(private val binding: CellArticleBinding) :
@@ -23,10 +25,10 @@ class ArticlesAdapter @Inject constructor() :
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) { // check if item was deleted
                     val item = items[position]
-                    item.url?.let {
-                        CustomTabsIntent.Builder().build()
-                            .launchUrl(itemView.context, Uri.parse(it))
-                    }
+                    onArticleClick?.invoke(
+                        position,
+                        item.url?.takeIf(URLUtil::isValidUrl)?.let(Uri::parse)
+                    )
                 }
             }
         }

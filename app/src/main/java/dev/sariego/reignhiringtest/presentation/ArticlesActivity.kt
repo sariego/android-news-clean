@@ -3,14 +3,18 @@ package dev.sariego.reignhiringtest.presentation
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import dev.sariego.reignhiringtest.databinding.ActivityArticlesBinding
+import dev.sariego.reignhiringtest.presentation.adapter.ArticlesAdapter
+import dev.sariego.reignhiringtest.presentation.adapter.onArticleClick
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import javax.inject.Inject
 
@@ -22,6 +26,9 @@ class ArticlesActivity : AppCompatActivity() {
 
     @Inject
     lateinit var adapter: ArticlesAdapter
+
+    @Inject
+    lateinit var browserIntent: CustomTabsIntent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +43,15 @@ class ArticlesActivity : AppCompatActivity() {
             adapter.apply {
                 items = articles
                 notifyDataSetChanged()
+            }
+        }
+
+        // adapter binding
+        adapter.onArticleClick { _, uri ->
+            if (uri != null) {
+                browserIntent.launchUrl(this, uri)
+            } else {
+                Toast.makeText(this, "Invalid URL", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -76,6 +92,7 @@ class ArticlesActivity : AppCompatActivity() {
                 actionState: Int,
                 isCurrentlyActive: Boolean
             ) {
+                // to draw delete label
                 RecyclerViewSwipeDecorator.Builder(
                     c, recyclerView, viewHolder,
                     dX, dY, actionState, isCurrentlyActive
