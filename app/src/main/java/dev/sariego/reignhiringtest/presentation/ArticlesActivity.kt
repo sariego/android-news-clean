@@ -39,7 +39,7 @@ class ArticlesActivity : AppCompatActivity() {
         setupSwipeToRefresh()
 
         // model binding
-        model.updateAndObserve().observe(this) { articles ->
+        model.visibleArticles().observe(this) { articles ->
             adapter.apply {
                 items = articles
                 notifyDataSetChanged()

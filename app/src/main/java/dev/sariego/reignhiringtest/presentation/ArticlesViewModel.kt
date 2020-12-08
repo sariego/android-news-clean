@@ -12,10 +12,11 @@ class ArticlesViewModel @ViewModelInject constructor(
     private val interactors: Interactors,
 ) : ViewModel() {
 
-    fun updateAndObserve(): LiveData<List<Article>> {
+    init {
         update()
-        return interactors.observeArticles()
     }
+
+    fun visibleArticles(): LiveData<List<Article>> = interactors.observeArticles()
 
     fun delete(article: Article) = viewModelScope.launch(Dispatchers.IO) {
         interactors.deleteArticle(article)
