@@ -1,31 +1,37 @@
 package dev.sariego.reignhiringtest.framework.net
 
+import android.net.Uri
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.RequestFuture
 import dev.sariego.reignhiringtest.data.remote.ArticlesRemoteDataSource
 import dev.sariego.reignhiringtest.domain.entity.Article
+import dev.sariego.reignhiringtest.framework.di.qualifier.ServerUrl
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.concurrent.ExecutionException
 import javax.inject.Inject
 
 class HackerNewsRemoteDataSource @Inject constructor(
-    private val queue: RequestQueue
+    @ServerUrl private val serverUrl: String,
+    private val queue: RequestQueue,
+    private val deserializer: HackerNewsArticleDeserializer,
 ) : ArticlesRemoteDataSource {
 
-    private val deserializer = HackerNewsArticleDeserializer()
-
     override fun get(): List<Article> {
-        val future = RequestFuture.newFuture<JSONObject>()
-        queue.add(
-            JsonObjectRequest(
-                "https://hn.algolia.com/api/v1/search_by_date?query=android",
-                null,
-                future,
-                future
+        val url = Uri.parse(serverUrl)
+            .buildUpon()
+            .appendPath(HackerNewsApi.SEARCH_PATH)
+            .appendQueryParameter(
+                HackerNewsApi.SEARCH_QUERY_PARAM_KEY,
+                HackerNewsApi.SEARCH_QUERY_PARAM_VALUE,
             )
-        )
+            .build()
+            .toString()
+        val future = RequestFuture.newFuture<JSONObject>()
+
+        queue.add(JsonObjectRequest(url, null, future, future))
+
         try {
             val response = future.get()
             return with(deserializer) {

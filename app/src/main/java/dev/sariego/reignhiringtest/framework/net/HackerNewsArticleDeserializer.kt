@@ -5,9 +5,10 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.time.Instant
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class HackerNewsArticleDeserializer {
+class HackerNewsArticleDeserializer @Inject constructor() {
 
     fun JSONObject.deserialize(): List<Article> {
         val articles = ArrayList<Article>()
