@@ -1,13 +1,13 @@
 package dev.sariego.reignhiringtest.data.local
 
-import androidx.lifecycle.LiveData
 import dev.sariego.reignhiringtest.domain.entity.Article
+import kotlinx.coroutines.flow.Flow
 
 interface ArticlesLocalDataSource {
 
-    fun live(): LiveData<List<Article>>
+    fun stream(): Flow<List<Article>>
 
-    fun delete(article: Article)
+    suspend fun delete(article: Article)
 
-    fun addNew(vararg articles: Article)
+    suspend fun addNew(vararg articles: Article)
 }

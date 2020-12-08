@@ -4,5 +4,5 @@ import dev.sariego.reignhiringtest.domain.entity.Article
 
 interface ArticlesRemoteDataSource {
 
-    fun get(): List<Article>
+    suspend fun get(): List<Article>
 }

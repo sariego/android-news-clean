@@ -18,7 +18,7 @@ class HackerNewsRemoteDataSource @Inject constructor(
     private val deserializer: HackerNewsArticleDeserializer,
 ) : ArticlesRemoteDataSource {
 
-    override fun get(): List<Article> {
+    override suspend fun get(): List<Article> {
         val url = Uri.parse(serverUrl)
             .buildUpon()
             .appendPath(HackerNewsApi.SEARCH_PATH)

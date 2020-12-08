@@ -1,13 +1,13 @@
 package dev.sariego.reignhiringtest.framework.db
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ArticleDao {
 
     @Query("SELECT * FROM articles WHERE deleted = 0 ORDER BY created DESC")
-    fun getNonDeletedArticles(): LiveData<List<LocalDataArticle>>
+    fun observeNonDeletedArticles(): Flow<List<LocalDataArticle>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertOnlyNewArticles(vararg articles: LocalDataArticle)

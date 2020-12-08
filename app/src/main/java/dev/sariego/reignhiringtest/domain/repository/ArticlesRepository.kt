@@ -1,16 +1,16 @@
 package dev.sariego.reignhiringtest.domain.repository
 
-import androidx.lifecycle.LiveData
 import dev.sariego.reignhiringtest.domain.entity.Article
+import kotlinx.coroutines.flow.Flow
 
 interface ArticlesRepository {
 
     // return stream of non-deleted available articles
-    fun live(): LiveData<List<Article>>
+    fun stream(): Flow<List<Article>>
 
     // get new articles
-    fun fetch()
+    suspend fun fetch()
 
     // delete article
-    fun delete(article: Article)
+    suspend fun delete(article: Article)
 }

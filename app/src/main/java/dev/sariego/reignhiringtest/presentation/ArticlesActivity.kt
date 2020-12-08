@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,8 +17,11 @@ import dev.sariego.reignhiringtest.databinding.ActivityArticlesBinding
 import dev.sariego.reignhiringtest.presentation.adapter.ArticlesAdapter
 import dev.sariego.reignhiringtest.presentation.adapter.onArticleClick
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ArticlesActivity : AppCompatActivity() {
 
@@ -38,14 +42,6 @@ class ArticlesActivity : AppCompatActivity() {
         setupRecyclerView()
         setupSwipeToRefresh()
 
-        // model binding
-        model.visibleArticles().observe(this) { articles ->
-            adapter.apply {
-                items = articles
-                notifyDataSetChanged()
-            }
-        }
-
         // adapter binding
         adapter.onArticleClick { _, uri ->
             if (uri != null) {
@@ -54,6 +50,17 @@ class ArticlesActivity : AppCompatActivity() {
                 Toast.makeText(this, "Invalid URL", Toast.LENGTH_SHORT).show()
             }
         }
+
+        // model binding
+        lifecycleScope.launchWhenStarted {
+            model.visibleArticles().collect { articles ->
+                adapter.apply {
+                    items = articles
+                    notifyDataSetChanged()
+                }
+            }
+        }
+
     }
 
     private fun setupRecyclerView() {

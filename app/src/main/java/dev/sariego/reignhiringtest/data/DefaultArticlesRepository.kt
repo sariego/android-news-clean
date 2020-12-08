@@ -1,10 +1,10 @@
 package dev.sariego.reignhiringtest.data
 
-import androidx.lifecycle.LiveData
 import dev.sariego.reignhiringtest.data.local.ArticlesLocalDataSource
 import dev.sariego.reignhiringtest.data.remote.ArticlesRemoteDataSource
 import dev.sariego.reignhiringtest.domain.entity.Article
 import dev.sariego.reignhiringtest.domain.repository.ArticlesRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class DefaultArticlesRepository @Inject constructor(
@@ -12,9 +12,9 @@ class DefaultArticlesRepository @Inject constructor(
     private val remote: ArticlesRemoteDataSource,
 ) : ArticlesRepository {
 
-    override fun live(): LiveData<List<Article>> = local.live()
+    override fun stream(): Flow<List<Article>> = local.stream()
 
-    override fun fetch() = local.addNew(*remote.get().toTypedArray())
+    override suspend fun fetch() = local.addNew(*remote.get().toTypedArray())
 
-    override fun delete(article: Article) = local.delete(article)
+    override suspend fun delete(article: Article) = local.delete(article)
 }
