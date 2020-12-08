@@ -18,7 +18,7 @@ class RoomLocalDataSource @Inject constructor(
     }
 
     override fun delete(article: Article) = with(mapper) {
-        dao.updateArticle(article.asData().copy(deleted = true))
+        dao.updateArticle(article.asData(deleted = true))
     }
 
     override fun addNew(vararg articles: Article) = with(mapper) {

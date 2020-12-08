@@ -4,7 +4,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
-import dev.sariego.reignhiringtest.data.ArticlesRepositoryImpl
+import dev.sariego.reignhiringtest.data.DefaultArticlesRepository
 import dev.sariego.reignhiringtest.data.local.ArticlesLocalDataSource
 import dev.sariego.reignhiringtest.data.remote.ArticlesRemoteDataSource
 import dev.sariego.reignhiringtest.domain.repository.ArticlesRepository
@@ -16,7 +16,7 @@ import dev.sariego.reignhiringtest.framework.net.HackerNewsRemoteDataSource
 interface DataModule {
 
     @Binds
-    fun bindArticlesRepository(impl: ArticlesRepositoryImpl): ArticlesRepository
+    fun bindArticlesRepository(impl: DefaultArticlesRepository): ArticlesRepository
 
     @Binds
     fun bindLocalDataSource(impl: RoomLocalDataSource): ArticlesLocalDataSource

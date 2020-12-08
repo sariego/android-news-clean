@@ -13,11 +13,12 @@ class LocalDataArticleMapper @Inject constructor() {
         url = this.url,
     )
 
-    fun Article.asData() = LocalDataArticle(
+    fun Article.asData(deleted: Boolean = false) = LocalDataArticle(
         id = this.id,
         title = this.title,
         author = this.author,
         created = this.created,
         url = this.url,
+        deleted = deleted,
     )
 }

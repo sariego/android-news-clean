@@ -7,7 +7,7 @@ import dev.sariego.reignhiringtest.domain.entity.Article
 import dev.sariego.reignhiringtest.domain.repository.ArticlesRepository
 import javax.inject.Inject
 
-class ArticlesRepositoryImpl @Inject constructor(
+class DefaultArticlesRepository @Inject constructor(
     private val local: ArticlesLocalDataSource,
     private val remote: ArticlesRemoteDataSource,
 ) : ArticlesRepository {
