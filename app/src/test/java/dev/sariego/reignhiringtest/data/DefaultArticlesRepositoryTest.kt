@@ -1,5 +1,6 @@
 package dev.sariego.reignhiringtest.data
 
+import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
 import dev.sariego.reignhiringtest.ArticleFactory
 import dev.sariego.reignhiringtest.data.local.ArticlesLocalDataSource
@@ -13,6 +14,7 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
 
+@SmallTest
 @ExperimentalCoroutinesApi
 class DefaultArticlesRepositoryTest {
 
