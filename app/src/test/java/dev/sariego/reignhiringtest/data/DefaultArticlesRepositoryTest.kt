@@ -2,7 +2,7 @@ package dev.sariego.reignhiringtest.data
 
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
-import dev.sariego.reignhiringtest.ArticleFactory
+import dev.sariego.reignhiringtest.factory.ArticleFactory
 import dev.sariego.reignhiringtest.data.local.ArticlesLocalDataSource
 import dev.sariego.reignhiringtest.data.remote.ArticlesRemoteDataSource
 import io.mockk.*
@@ -18,13 +18,13 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class DefaultArticlesRepositoryTest {
 
+    lateinit var repository: DefaultArticlesRepository
+
     @MockK
     lateinit var local: ArticlesLocalDataSource
 
     @MockK
     lateinit var remote: ArticlesRemoteDataSource
-
-    lateinit var repository: DefaultArticlesRepository
 
     @Before
     fun setup() {

@@ -1,4 +1,4 @@
-package dev.sariego.reignhiringtest
+package dev.sariego.reignhiringtest.factory
 
 import dev.sariego.reignhiringtest.domain.entity.Article
 import io.github.serpro69.kfaker.Faker
@@ -23,7 +23,8 @@ object ArticleFactory {
 
     fun makeList(
         capacity: Int = 10,
-        transform: (position: Int, article: Article) -> Article = { _, a -> a }
+        transform: ArticleTransform? = null
     ): List<Article> =
-        List(capacity) { transform(it, make()) }
+        List(capacity) { position -> make().let { transform?.invoke(position, it) ?: it } }
 }
+

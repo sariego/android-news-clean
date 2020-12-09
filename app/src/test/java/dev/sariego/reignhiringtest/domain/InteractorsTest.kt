@@ -1,7 +1,7 @@
 package dev.sariego.reignhiringtest.domain
 
 import androidx.test.filters.SmallTest
-import dev.sariego.reignhiringtest.ArticleFactory
+import dev.sariego.reignhiringtest.factory.ArticleFactory
 import dev.sariego.reignhiringtest.domain.interactor.DeleteArticle
 import dev.sariego.reignhiringtest.domain.interactor.ObserveArticles
 import dev.sariego.reignhiringtest.domain.interactor.UpdateArticles
