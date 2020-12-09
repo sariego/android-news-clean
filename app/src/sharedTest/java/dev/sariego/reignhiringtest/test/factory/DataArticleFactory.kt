@@ -1,26 +1,27 @@
 package dev.sariego.reignhiringtest.test.factory
 
-import dev.sariego.reignhiringtest.domain.entity.Article
+import dev.sariego.reignhiringtest.framework.db.LocalDataArticle
 import io.github.serpro69.kfaker.Faker
 import java.net.URL
 import java.util.*
 
-object ArticleFactory {
+object DataArticleFactory {
 
     private val faker = Faker()
 
-    fun make(): Article {
+    fun makeLocal(): LocalDataArticle {
         val uuid = UUID.randomUUID()
         val url = URL("https", faker.internet.domain(), uuid.toString())
-        return Article(
+        return LocalDataArticle(
             id = uuid.hashCode(),
             title = faker.movie.title(),
             author = faker.artist.names(),
             created = Date(),
             url = url.toString(),
+            deleted = false,
         )
     }
 
-    fun makeList(capacity: Int = 10): List<Article> = List(capacity) { make() }
+    fun makeLocalList(capacity: Int = 10): List<LocalDataArticle> =
+        List(capacity) { makeLocal() }
 }
-

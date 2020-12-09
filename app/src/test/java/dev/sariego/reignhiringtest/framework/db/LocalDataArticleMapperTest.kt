@@ -3,6 +3,7 @@ package dev.sariego.reignhiringtest.framework.db
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
 import dev.sariego.reignhiringtest.test.factory.ArticleFactory
+import dev.sariego.reignhiringtest.test.factory.DataArticleFactory
 import org.junit.Test
 import kotlin.random.Random
 
@@ -13,7 +14,7 @@ class LocalDataArticleMapperTest {
 
     @Test
     fun asArticle_shouldMapCorrectly() {
-        val expected = with(mapper) { ArticleFactory.make().asData() }
+        val expected = DataArticleFactory.makeLocal()
         val actual = with(mapper) { expected.asArticle() }
 
         assertThat(actual.id).isEqualTo(expected.id)

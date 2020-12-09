@@ -6,8 +6,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
-import dev.sariego.reignhiringtest.test.factory.ArticleFactory
-import dev.sariego.reignhiringtest.test.factory.ArticleTransform
+import dev.sariego.reignhiringtest.test.factory.DataArticleFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest
@@ -28,13 +27,6 @@ class ArticleDaoTest {
     lateinit var db: AppDatabase
     lateinit var dao: ArticleDao
 
-    private val mapper = LocalDataArticleMapper()
-    private fun ArticleFactory.makeData() = this.make().let { with(mapper) { it.asData() } }
-    private fun ArticleFactory.makeDataList(
-        capacity: Int = 10,
-        transform: ArticleTransform? = null,
-    ) = this.makeList(capacity, transform).map { with(mapper) { it.asData() } }
-
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
@@ -54,7 +46,7 @@ class ArticleDaoTest {
 
     @Test
     fun observe_shouldOnlyShowNonDeletedItems() = runBlockingTest {
-        val all = ArticleFactory.makeDataList()
+        val all = DataArticleFactory.makeLocalList()
             .mapIndexed { i, article ->
                 article.takeIf { i == 0 }
                     ?.copy(deleted = true)
@@ -73,12 +65,13 @@ class ArticleDaoTest {
     @Test
     fun observe_shouldShowItemsInOrderNewestFirst() = runBlockingTest {
         val now = Date().toInstant()
-        val expected = ArticleFactory.makeDataList { position, article ->
-            article.copy(
-                created = now.plus(position.toLong(), ChronoUnit.DAYS)
-                    .toEpochMilli().let { Date(it) }
-            )
-        }
+        val expected = DataArticleFactory.makeLocalList()
+            .mapIndexed { i, article ->
+                article.copy(
+                    created = now.plus(i.toLong(), ChronoUnit.DAYS)
+                        .toEpochMilli().let { Date(it) }
+                )
+            }
         dao.insertOnlyNewArticles(*expected.toTypedArray())
 
         val actual = dao.observeNonDeletedArticles().first()
@@ -90,7 +83,7 @@ class ArticleDaoTest {
 
     @Test
     fun insert_shouldAddNewItems() = runBlockingTest {
-        val expected = ArticleFactory.makeDataList()
+        val expected = DataArticleFactory.makeLocalList()
         val stream = dao.observeNonDeletedArticles()
 
         assertThat(stream.first()).containsNoneIn(expected)
@@ -100,8 +93,8 @@ class ArticleDaoTest {
 
     @Test
     fun insert_shouldNotAddExistingItems() = runBlockingTest {
-        val existing = ArticleFactory.makeData()
-        val new = ArticleFactory.makeData().copy(id = existing.id)
+        val existing = DataArticleFactory.makeLocal()
+        val new = DataArticleFactory.makeLocal().copy(id = existing.id)
         val stream = dao.observeNonDeletedArticles()
         dao.insertOnlyNewArticles(existing)
 
@@ -113,8 +106,8 @@ class ArticleDaoTest {
 
     @Test
     fun update_shouldModifyExistingItem() = runBlockingTest {
-        val existing = ArticleFactory.makeData()
-        val new = ArticleFactory.makeData().copy(id = existing.id)
+        val existing = DataArticleFactory.makeLocal()
+        val new = DataArticleFactory.makeLocal().copy(id = existing.id)
         val stream = dao.observeNonDeletedArticles()
         dao.insertOnlyNewArticles(existing)
 
@@ -126,7 +119,7 @@ class ArticleDaoTest {
 
     @Test
     fun update_shouldNotAddNewItem() = runBlockingTest {
-        val expected = ArticleFactory.makeData()
+        val expected = DataArticleFactory.makeLocal()
         val stream = dao.observeNonDeletedArticles()
 
         assertThat(stream.first()).doesNotContain(expected)
