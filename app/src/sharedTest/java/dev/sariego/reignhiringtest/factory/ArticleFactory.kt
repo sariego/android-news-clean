@@ -14,8 +14,8 @@ object ArticleFactory {
         val url = URL("https", faker.internet.domain(), uuid.toString())
         return Article(
             id = uuid.hashCode(),
-            title = faker.movie.unique.title(),
-            author = faker.artist.unique.names(),
+            title = faker.movie.title(),
+            author = faker.artist.names(),
             created = Date(),
             url = url.toString(),
         )
