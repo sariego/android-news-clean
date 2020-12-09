@@ -2,7 +2,7 @@ package dev.sariego.reignhiringtest.data
 
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
-import dev.sariego.reignhiringtest.factory.ArticleFactory
+import dev.sariego.reignhiringtest.test.factory.ArticleFactory
 import dev.sariego.reignhiringtest.data.local.ArticlesLocalDataSource
 import dev.sariego.reignhiringtest.data.remote.ArticlesRemoteDataSource
 import io.mockk.*

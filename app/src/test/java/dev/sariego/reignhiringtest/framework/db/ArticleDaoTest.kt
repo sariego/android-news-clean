@@ -6,8 +6,8 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
-import dev.sariego.reignhiringtest.factory.ArticleFactory
-import dev.sariego.reignhiringtest.factory.ArticleTransform
+import dev.sariego.reignhiringtest.test.factory.ArticleFactory
+import dev.sariego.reignhiringtest.test.factory.ArticleTransform
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest

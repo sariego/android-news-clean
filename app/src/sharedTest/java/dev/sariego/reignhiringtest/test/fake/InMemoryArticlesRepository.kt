@@ -1,8 +1,8 @@
-package dev.sariego.reignhiringtest.fake
+package dev.sariego.reignhiringtest.test.fake
 
 import dev.sariego.reignhiringtest.domain.entity.Article
 import dev.sariego.reignhiringtest.domain.repository.ArticlesRepository
-import dev.sariego.reignhiringtest.factory.ArticleFactory
+import dev.sariego.reignhiringtest.test.factory.ArticleFactory
 import kotlinx.coroutines.flow.*
 
 class InMemoryArticlesRepository : ArticlesRepository {

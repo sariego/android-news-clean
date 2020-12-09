@@ -1,4 +1,4 @@
-package dev.sariego.reignhiringtest.factory
+package dev.sariego.reignhiringtest.test.factory
 
 import dev.sariego.reignhiringtest.domain.entity.Article
 
