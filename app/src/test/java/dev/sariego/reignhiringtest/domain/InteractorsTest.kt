@@ -1,11 +1,11 @@
 package dev.sariego.reignhiringtest.domain
 
 import androidx.test.filters.SmallTest
-import dev.sariego.reignhiringtest.test.factory.ArticleFactory
 import dev.sariego.reignhiringtest.domain.interactor.DeleteArticle
 import dev.sariego.reignhiringtest.domain.interactor.ObserveArticles
 import dev.sariego.reignhiringtest.domain.interactor.UpdateArticles
 import dev.sariego.reignhiringtest.domain.repository.ArticlesRepository
+import dev.sariego.reignhiringtest.test.factory.ArticleFactory
 import io.mockk.MockKAnnotations
 import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK

@@ -3,7 +3,9 @@ package dev.sariego.reignhiringtest.test.fake
 import dev.sariego.reignhiringtest.domain.entity.Article
 import dev.sariego.reignhiringtest.domain.repository.ArticlesRepository
 import dev.sariego.reignhiringtest.test.factory.ArticleFactory
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 class InMemoryArticlesRepository(
     initialItems: List<Article> = emptyList()

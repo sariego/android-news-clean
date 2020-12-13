@@ -2,10 +2,13 @@ package dev.sariego.reignhiringtest.data
 
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
-import dev.sariego.reignhiringtest.test.factory.ArticleFactory
 import dev.sariego.reignhiringtest.data.local.ArticlesLocalDataSource
 import dev.sariego.reignhiringtest.data.remote.ArticlesRemoteDataSource
-import io.mockk.*
+import dev.sariego.reignhiringtest.test.factory.ArticleFactory
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first

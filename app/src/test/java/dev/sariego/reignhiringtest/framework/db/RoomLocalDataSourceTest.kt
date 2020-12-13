@@ -27,7 +27,7 @@ class RoomLocalDataSourceTest {
     private val mapper = LocalDataArticleMapper()
 
     @get:Rule
-    val instantTaskExecutorRule =  InstantTaskExecutorRule()
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Before
     fun setup() {
