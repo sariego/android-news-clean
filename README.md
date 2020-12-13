@@ -7,7 +7,7 @@ The user can:
 (b) fetch more articles by pull-to-refresh  
 (c) delete unwanted articles by swiping
 
-### architecture
+### Architecture
 The application consists of 4 layers:  
 
 Layer | Contains
