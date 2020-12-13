@@ -5,20 +5,22 @@ import dev.sariego.reignhiringtest.domain.repository.ArticlesRepository
 import dev.sariego.reignhiringtest.test.factory.ArticleFactory
 import kotlinx.coroutines.flow.*
 
-class InMemoryArticlesRepository : ArticlesRepository {
+class InMemoryArticlesRepository(
+    initialItems: List<Article> = emptyList()
+) : ArticlesRepository {
 
-    private val items = mutableListOf<Article>()
-    private val state = MutableStateFlow(items.toList())
+    private val items = initialItems.toMutableList()
+    private val flow = MutableStateFlow(initialItems)
 
-    override fun stream(): Flow<List<Article>>  = state
+    override fun stream(): Flow<List<Article>> = flow.asStateFlow()
 
     override suspend fun fetch() {
         items.addAll(ArticleFactory.makeList())
-        state.value = items
+        flow.value = items
     }
 
     override suspend fun delete(article: Article) {
         items.remove(article)
-        state.value = items
+        flow.value = items
     }
 }
