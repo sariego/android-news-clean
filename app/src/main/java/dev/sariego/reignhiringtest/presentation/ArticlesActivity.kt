@@ -53,6 +53,7 @@ class ArticlesActivity : AppCompatActivity() {
 
         // model binding
         lifecycleScope.launchWhenStarted {
+            model.update()
             model.visibleArticles().collect { articles ->
                 adapter.apply {
                     items = articles
@@ -60,7 +61,6 @@ class ArticlesActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
 
     private fun setupRecyclerView() {
