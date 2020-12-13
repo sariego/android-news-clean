@@ -11,7 +11,7 @@ object DataArticleFactory {
 
     fun makeLocal(): LocalDataArticle {
         val uuid = UUID.randomUUID()
-        val url = URL("https", faker.internet.domain(), uuid.toString())
+        val url = URL("https", faker.internet.domain(), "/$uuid")
         return LocalDataArticle(
             id = uuid.hashCode(),
             title = faker.movie.title(),

@@ -11,7 +11,7 @@ object ArticleFactory {
 
     fun make(): Article {
         val uuid = UUID.randomUUID()
-        val url = URL("https", faker.internet.domain(), uuid.toString())
+        val url = URL("https", faker.internet.domain(), "/$uuid")
         return Article(
             id = uuid.hashCode(),
             title = faker.movie.title(),
