@@ -15,6 +15,6 @@ Layer | Contains
 Presentation | User interface, presentation logic and navigation
 Domain | Entities, interactors and repository definitions
 Data | Repository implementations and data source definitions
-Framework | Data source impleentations, dependency injection, others  
+Framework | Data source implementations, dependency injection, others  
 
 ![android architecture](static/android_arch.png)
