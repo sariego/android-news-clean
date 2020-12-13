@@ -44,7 +44,7 @@ class RoomLocalDataSourceTest {
     }
 
     @Test
-    fun addNew_shouldAddToStream() = runBlockingTest {
+    fun addNew_addsItemsToStream() = runBlockingTest {
         val expected = ArticleFactory.makeList()
         val stream = source.stream()
 
@@ -54,7 +54,7 @@ class RoomLocalDataSourceTest {
     }
 
     @Test
-    fun delete_shouldRemoveFromStream() = runBlockingTest {
+    fun delete_removesItemsFromStream() = runBlockingTest {
         val all = ArticleFactory.makeList()
         val expected = all.first()
 

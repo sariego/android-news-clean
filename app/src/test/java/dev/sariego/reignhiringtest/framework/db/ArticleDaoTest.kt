@@ -45,7 +45,7 @@ class ArticleDaoTest {
     }
 
     @Test
-    fun observe_shouldOnlyShowNonDeletedItems() = runBlockingTest {
+    fun observe_showsOnlyNonDeletedItems() = runBlockingTest {
         val all = DataArticleFactory.makeLocalList()
             .mapIndexed { i, article ->
                 article.takeIf { i == 0 }
@@ -63,7 +63,7 @@ class ArticleDaoTest {
     }
 
     @Test
-    fun observe_shouldShowItemsInOrderNewestFirst() = runBlockingTest {
+    fun observe_showsItemsInOrderNewestFirst() = runBlockingTest {
         val now = Date().toInstant()
         val expected = DataArticleFactory.makeLocalList()
             .mapIndexed { i, article ->
@@ -82,7 +82,7 @@ class ArticleDaoTest {
     }
 
     @Test
-    fun insert_shouldAddNewItems() = runBlockingTest {
+    fun insert_addsNewItems() = runBlockingTest {
         val expected = DataArticleFactory.makeLocalList()
         val stream = dao.observeNonDeletedArticles()
 
@@ -92,7 +92,7 @@ class ArticleDaoTest {
     }
 
     @Test
-    fun insert_shouldNotAddExistingItems() = runBlockingTest {
+    fun insert_doNotAddsExistingItems() = runBlockingTest {
         val existing = DataArticleFactory.makeLocal()
         val new = DataArticleFactory.makeLocal().copy(id = existing.id)
         val stream = dao.observeNonDeletedArticles()
@@ -105,7 +105,7 @@ class ArticleDaoTest {
     }
 
     @Test
-    fun update_shouldModifyExistingItem() = runBlockingTest {
+    fun update_modifiesExistingItem() = runBlockingTest {
         val existing = DataArticleFactory.makeLocal()
         val new = DataArticleFactory.makeLocal().copy(id = existing.id)
         val stream = dao.observeNonDeletedArticles()
@@ -118,7 +118,7 @@ class ArticleDaoTest {
     }
 
     @Test
-    fun update_shouldNotAddNewItem() = runBlockingTest {
+    fun update_doNotAddsNewItem() = runBlockingTest {
         val expected = DataArticleFactory.makeLocal()
         val stream = dao.observeNonDeletedArticles()
 

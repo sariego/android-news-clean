@@ -21,7 +21,7 @@ class ArticlesViewModelTest {
     val coroutinesTestRule = CoroutinesTestRule()
 
     @Test
-    fun delete_shouldRemoveItemFromState() = runBlockingTest {
+    fun delete_removesItemFromState() = runBlockingTest {
         val all = ArticleFactory.makeList()
         val expected = all.first()
         val repo = InMemoryArticlesRepository(initialItems = all)
@@ -35,7 +35,7 @@ class ArticlesViewModelTest {
     }
 
     @Test
-    fun update_shouldAddNewItemsToState() = runBlocking {
+    fun update_addsNewItemsToState() = runBlocking {
         val repo = InMemoryArticlesRepository()
         val model = ArticlesViewModel(InteractorsFactory.make(repo))
 

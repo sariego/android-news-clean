@@ -13,7 +13,7 @@ class LocalDataArticleMapperTest {
     private val mapper = LocalDataArticleMapper()
 
     @Test
-    fun asArticle_shouldMapCorrectly() {
+    fun asArticle_mapsCorrectly() {
         val expected = DataArticleFactory.makeLocal()
         val actual = with(mapper) { expected.asArticle() }
 
@@ -25,7 +25,7 @@ class LocalDataArticleMapperTest {
     }
 
     @Test
-    fun asData_shouldMapCorrectly() {
+    fun asData_mapsCorrectly() {
         val expected = ArticleFactory.make()
         val deleted = Random.nextBoolean()
         val actual = with(mapper) { expected.asData(deleted) }
