@@ -14,6 +14,8 @@ class InMemoryArticlesRepository(
     private val items = initialItems.toMutableList()
     private val flow = MutableStateFlow(initialItems)
 
+    val currentItems: List<Article> get() = items
+
     override fun stream(): Flow<List<Article>> = flow.asStateFlow()
 
     override suspend fun fetch() {

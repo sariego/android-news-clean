@@ -9,7 +9,6 @@ import dev.sariego.reignhiringtest.test.rule.CoroutinesTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Rule
 import org.junit.Test
 
@@ -21,7 +20,7 @@ class ArticlesViewModelTest {
     val coroutinesTestRule = CoroutinesTestRule()
 
     @Test
-    fun delete_removesItemFromState() = runBlockingTest {
+    fun delete_removesItemFromState(): Unit = runBlocking {
         val all = ArticleFactory.makeList()
         val expected = all.first()
         val repo = InMemoryArticlesRepository(initialItems = all)
@@ -35,7 +34,7 @@ class ArticlesViewModelTest {
     }
 
     @Test
-    fun update_addsNewItemsToState() = runBlocking {
+    fun update_addsNewItemsToState(): Unit = runBlocking {
         val repo = InMemoryArticlesRepository()
         val model = ArticlesViewModel(InteractorsFactory.make(repo))
 
