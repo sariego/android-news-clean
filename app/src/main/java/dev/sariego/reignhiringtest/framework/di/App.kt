@@ -1,7 +1,0 @@
-package dev.sariego.reignhiringtest.framework.di
-
-import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
-
-@HiltAndroidApp
-class App : Application()
