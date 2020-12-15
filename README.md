@@ -30,3 +30,7 @@ network | retrofit, moshi
 browser | chrome.customtabs
 async | kotlinx.coroutines, flow, stateflow
 test | androidx.test, robolectric, mockk, espresso, truth, mockwebserver
+
+### to-do
+- instrumented e2e tests
+- more features...?
