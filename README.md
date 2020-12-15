@@ -1,6 +1,7 @@
 # Android News
 Clean architecture sample in android.  
-The app is a simple news articles adapter using data from a external api
+The app is a simple news articles adapter using data from a external api,  
+it persists articles for offline use.
 
 The user can:  
 (a) view article in browser  
@@ -18,3 +19,14 @@ Data | Repository implementations and data source definitions
 Framework | Data source implementations, dependency injection, others  
 
 ![android architecture](static/android_arch.png)
+
+### Dependencies
+type | libraries
+--- | ---
+ui | recyclerview, swiperefreshlayout, viewmodel
+di | dagger.hilt
+persistence | room
+network | retrofit, moshi
+browser | chrome.customtabs
+async | kotlinx.coroutines, flow, stateflow
+test | androidx.test, robolectric, mockk, espresso, truth, mockwebserver
